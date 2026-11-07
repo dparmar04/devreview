@@ -8,7 +8,7 @@ Tasks with (HUMAN) in the title are done and marked by the human.
 |----|-------|-------|--------|
 | T-001 | 0 | Environment, package skeleton, smoke test | DONE |
 | T-002 | 0 | Make `make verify` green | DONE |
-| T-003 | 0 | Prove the local gate blocks bad pushes | TODO |
+| T-003 | 0 | Prove the local gate blocks bad pushes | DONE |
 | T-004 | 0 | CI runs on pull requests | TODO |
 | T-005 | 0 | Turn on branch protection (HUMAN) | TODO |
 | T-101 | 1 | CLI skeleton | TODO |
