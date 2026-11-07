@@ -11,7 +11,7 @@ Tasks with (HUMAN) in the title are done and marked by the human.
 | T-003 | 0 | Prove the local gate blocks bad pushes | DONE |
 | T-004 | 0 | CI runs on pull requests | DONE |
 | T-005 | 0 | Turn on branch protection (HUMAN) | DONE |
-| T-101 | 1 | CLI skeleton | TODO |
+| T-101 | 1 | CLI skeleton | DONE |
 | T-102 | 1 | Find bug-fix commits | TODO |
 | T-103 | 1 | Find bug-introducing commits (simplified SZZ) | TODO |
 | T-104 | 1 | Build the golden dataset file | TODO |
