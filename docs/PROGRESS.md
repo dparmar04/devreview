@@ -6,7 +6,7 @@ Tasks with (HUMAN) in the title are done and marked by the human.
 
 | ID | Phase | Title | Status |
 |----|-------|-------|--------|
-| T-001 | 0 | Environment, package skeleton, smoke test | TODO |
+| T-001 | 0 | Environment, package skeleton, smoke test | DONE |
 | T-002 | 0 | Make `make verify` green | TODO |
 | T-003 | 0 | Prove the local gate blocks bad pushes | TODO |
 | T-004 | 0 | CI runs on pull requests | TODO |
