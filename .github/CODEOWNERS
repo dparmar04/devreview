@@ -1,0 +1,11 @@
+# Files the AI agent must NOT change without the human owner's review.
+# Auto-requests your review; it does not block merging (see docs/GUARDRAILS.md Part 2).
+# Replace YOUR_GITHUB_USERNAME with the human owner's GitHub username (task T-005 checks this).
+/scripts/                 @dparmar04
+/tests/test_guard.py      @dparmar04
+/.github/                 @dparmar04
+/Makefile                 @dparmar04
+/.pre-commit-config.yaml  @dparmar04
+/AGENTS.md                @dparmar04
+/docs/ALLOWED_DEPS.txt    @dparmar04
+/evals/thresholds.json    @dparmar04

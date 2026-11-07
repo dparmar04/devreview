@@ -1,0 +1,14 @@
+# Packages the project may depend on. One per line. Only the human owner edits this file.
+# The agent must never add a dependency anywhere (pyproject.toml, requirements) that is not listed here.
+# To request one: write it in docs/QUESTIONS.md with the reason; the human checks the package is real
+# and reputable on its official page, then adds it here.
+
+# --- dev tools (approved) ---
+pytest
+ruff
+bandit
+pip-audit
+pre-commit
+
+# --- planned, NOT yet approved: do not use until the human moves a line above this comment block ---
+# LLM provider SDK (human chooses the provider in task T-201)

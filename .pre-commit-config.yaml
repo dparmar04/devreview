@@ -1,0 +1,32 @@
+# Local hooks only (no downloaded hook repos = nothing to hallucinate or get hijacked).
+# Needs your virtualenv to be active so `ruff` and `python` resolve to the project's tools.
+default_install_hook_types: [pre-commit, pre-push]
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-lint
+        name: ruff lint
+        entry: ruff check .
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: ruff-format
+        name: ruff format check
+        entry: ruff format --check .
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: secret-scan
+        name: secret scan (fast)
+        entry: python scripts/guard.py --secrets-only
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+      - id: full-verify
+        name: full verification before push (make verify)
+        entry: make verify
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
