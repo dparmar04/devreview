@@ -30,6 +30,12 @@ You only get the skill if you can prove it. A row is DONE when its proof exists,
 -
 
 ## Glossary (plain English; the agent adds new terms here)
+- **Virtual environment:** a private toolbox folder of Python libraries for one project, so projects cannot break each other's versions. `.venv` here.
+- **Package:** a folder of Python code you can `import` by name. `devreview` is one.
+- **Test:** a small program that checks one fact automatically and fails loudly when the fact stops being true.
+- **Smoke test:** the smallest test that proves the thing turns on at all (name borrowed from "does it smoke when powered up").
+- **Editable install:** installing your own package so it points at the source files; edits take effect with no reinstall.
+- **Dependency:** another package your code needs in order to run. Listed in `pyproject.toml`, and only allowed if listed in `docs/ALLOWED_DEPS.txt`.
 - **Eval:** a test suite for AI. Instead of pass/fail you measure how often it is right.
 - **Golden dataset / ground truth:** examples where the correct answer is known, used as the answer key.
 - **Recall:** of all real bugs, the share the reviewer caught. Like a smoke alarm that rings for real fires.
