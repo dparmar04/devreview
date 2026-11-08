@@ -21,6 +21,8 @@ Use ONE GitHub account (yours). A second "agent account" does not work well here
 5. **Prove it (T-005):** (a) a direct push to `main` with the agent token is rejected; (b) a PR with a failing test cannot be merged; (c) the agent token cannot open repository Settings or change branch protection.
 6. **Known gap:** the token can call the merge API once checks are green. AGENTS.md forbids merging; you merge. A hard stop later means moving the repo into a free GitHub organization with a separate agent account as a member and requiring one approval.
 
+Verified on 2026-11-07
+
 ## Part 3 - Catching hallucination yourself (2 minutes per task)
 1. Ask: **"Show me the command and its real output."** Tests that were not run are the most common lie.
 2. Ask: **"What did you NOT verify?"** A good agent lists things. "Nothing" is a red flag.

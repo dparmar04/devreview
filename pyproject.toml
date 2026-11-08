@@ -9,6 +9,9 @@ description = "AI code reviewer that backtests itself on your repo's git history
 requires-python = ">=3.11"
 dependencies = []
 
+[project.scripts]
+devreview = "devreview.cli:main"
+
 [project.optional-dependencies]
 dev = ["pytest", "ruff", "bandit", "pip-audit", "pre-commit"]
 
