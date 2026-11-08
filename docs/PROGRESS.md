@@ -13,7 +13,7 @@ Tasks with (HUMAN) in the title are done and marked by the human.
 | T-005 | 0 | Turn on branch protection (HUMAN) | DONE |
 | T-101 | 1 | CLI skeleton | DONE |
 | T-102 | 1 | Find bug-fix commits | DONE |
-| T-103 | 1 | Find bug-introducing commits (simplified SZZ) | TODO |
+| T-103 | 1 | Find bug-introducing commits (simplified SZZ) | DONE |
 | T-104 | 1 | Build the golden dataset file | TODO |
 | T-105 | 1 | Build a dataset from a real public repo | TODO |
 | T-106 | 1 | Audit label noise on 50 cases (HUMAN) | TODO |
