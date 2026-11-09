@@ -1,13 +1,12 @@
 """CLI entry point for devreview.
 
 Uses only the standard library ``argparse`` module.
-Subcommand groups ``dataset`` and ``backtest`` are placeholders
-that will gain real sub-commands in later phases.
 """
 
 from __future__ import annotations
 
 import argparse
+from typing import Sequence
 
 from devreview import __version__
 
@@ -26,9 +25,37 @@ def _build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command")
 
     # -- dataset subcommand group --
-    subparsers.add_parser(
+    dataset_parser = subparsers.add_parser(
         "dataset",
         help="Build and inspect golden datasets from git history.",
+    )
+    dataset_subparsers = dataset_parser.add_subparsers(dest="subcommand")
+
+    # devreview dataset build <repo> --out ...
+    build_parser = dataset_subparsers.add_parser(
+        "build",
+        help="Build golden dataset from a git repository.",
+    )
+    build_parser.add_argument(
+        "repo",
+        help="Path to git repository",
+    )
+    build_parser.add_argument(
+        "--out",
+        required=True,
+        help="Output JSONL file path",
+    )
+    build_parser.add_argument(
+        "--max-diff-lines",
+        type=int,
+        default=400,
+        help="Skip diffs exceeding this line count (default: 400)",
+    )
+    build_parser.add_argument(
+        "--min-age-days",
+        type=int,
+        default=90,
+        help="Minimum age in days for clean cases (default: 90)",
     )
 
     # -- backtest subcommand group --
@@ -40,13 +67,37 @@ def _build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: list[str] | None = None) -> None:
-    """Parse arguments and dispatch.  Called by the console-script entry point."""
+def main(argv: Sequence[str] | None = None) -> None:
+    """Parse arguments and dispatch. Called by the console-script entry point."""
     parser = _build_parser()
     args = parser.parse_args(argv)
 
     if args.command is None:
         parser.print_help()
+        return
+
+    if args.command == "dataset":
+        if getattr(args, "subcommand", None) == "build":
+            from devreview.dataset.builder import build_dataset
+
+            stats = build_dataset(
+                repo_path=args.repo,
+                out_path=args.out,
+                max_diff_lines=args.max_diff_lines,
+                min_age_days=args.min_age_days,
+            )
+            print(
+                f"Dataset built: {stats.buggy_count} buggy, {stats.clean_count} clean, "
+                f"{stats.skipped_count} skipped -> {stats.out_path}"
+            )
+            return
+
+        # No subcommand given under dataset
+        # Retrieve the dataset parser to print its help
+        for action in parser._subparsers._actions:  # type: ignore[attr-defined]
+            if isinstance(action, argparse._SubParsersAction) and "dataset" in action.choices:
+                action.choices["dataset"].print_help()
+                return
 
 
 if __name__ == "__main__":
