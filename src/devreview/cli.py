@@ -58,6 +58,38 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Minimum age in days for clean cases (default: 90)",
     )
 
+    # devreview dataset audit <file> --sample 50 --seed 1
+    audit_parser = dataset_subparsers.add_parser(
+        "audit",
+        help="Interactively audit sampled buggy cases to calculate label noise.",
+    )
+    audit_parser.add_argument(
+        "file",
+        help="Path to dataset JSONL file",
+    )
+    audit_parser.add_argument(
+        "--repo",
+        default=None,
+        help="Path to git repository to display fix commit diffs",
+    )
+    audit_parser.add_argument(
+        "--sample",
+        type=int,
+        default=50,
+        help="Number of cases to audit (default: 50)",
+    )
+    audit_parser.add_argument(
+        "--seed",
+        type=int,
+        default=1,
+        help="Random seed for sampling (default: 1)",
+    )
+    audit_parser.add_argument(
+        "--out",
+        default="docs/DATASET_AUDIT.md",
+        help="Path to output markdown report (default: docs/DATASET_AUDIT.md)",
+    )
+
     # -- backtest subcommand group --
     subparsers.add_parser(
         "backtest",
@@ -77,7 +109,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         return
 
     if args.command == "dataset":
-        if getattr(args, "subcommand", None) == "build":
+        subcommand = getattr(args, "subcommand", None)
+        if subcommand == "build":
             from devreview.dataset.builder import build_dataset
 
             stats = build_dataset(
@@ -89,6 +122,18 @@ def main(argv: Sequence[str] | None = None) -> None:
             print(
                 f"Dataset built: {stats.buggy_count} buggy, {stats.clean_count} clean, "
                 f"{stats.skipped_count} skipped -> {stats.out_path}"
+            )
+            return
+
+        if subcommand == "audit":
+            from devreview.dataset.audit import audit_dataset
+
+            audit_dataset(
+                file_path=args.file,
+                repo_path=args.repo,
+                sample=args.sample,
+                seed=args.seed,
+                out_doc=args.out,
             )
             return
 

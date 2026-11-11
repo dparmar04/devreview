@@ -16,7 +16,7 @@ Tasks with (HUMAN) in the title are done and marked by the human.
 | T-103 | 1 | Find bug-introducing commits (simplified SZZ) | DONE |
 | T-104 | 1 | Build the golden dataset file | DONE |
 | T-105 | 1 | Build a dataset from a real public repo | DONE |
-| T-106 | 1 | Audit label noise on 50 cases (HUMAN) | TODO |
+| T-106 | 1 | Audit label noise on 50 cases (HUMAN) | DONE |
 | T-201 | 2 | LLM client wrapper with a fake for tests | TODO |
 | T-202 | 2 | Findings schema and strict parsing | TODO |
 | T-203 | 2 | Scorer: match findings to ground truth | TODO |
