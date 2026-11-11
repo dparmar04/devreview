@@ -133,9 +133,11 @@ def _run_git(repo_path: str, args: list[str]) -> str:
         cwd=repo_path,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         check=True,
     )
-    return result.stdout
+    return result.stdout or ""
 
 
 def _touches_code_files(repo_path: str, parent_sha: str, commit_sha: str) -> bool:
@@ -184,7 +186,10 @@ def build_dataset(
     introducing_map: dict[str, tuple[str, list[BuggyLocation]]] = {}
 
     for fix_sha in fix_shas:
-        locs = find_introducing_commits(str(repo), fix_sha)
+        try:
+            locs = find_introducing_commits(str(repo), fix_sha)
+        except subprocess.CalledProcessError:
+            locs = []
         for loc in locs:
             if loc.introducing_sha not in introducing_map:
                 introducing_map[loc.introducing_sha] = (fix_sha, [])
