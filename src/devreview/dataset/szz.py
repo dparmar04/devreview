@@ -42,9 +42,11 @@ def _run_git(repo_path: str, args: list[str]) -> str:
         cwd=repo_path,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         check=True,
     )
-    return result.stdout
+    return result.stdout or ""
 
 
 def _parse_diff_deleted_ranges(diff_text: str) -> list[tuple[str, int, int]]:
@@ -85,19 +87,22 @@ def _blame_range(
 ) -> list[tuple[str, int]]:
     """Run git blame --porcelain -w on parent for line range and return list of (sha, line_in_introducing)."""
     line_spec = f"{start_line},{end_line}"
-    stdout = _run_git(
-        repo_path,
-        [
-            "blame",
-            "--porcelain",
-            "-w",
-            "-L",
-            line_spec,
-            parent_sha,
-            "--",
-            file_path,
-        ],
-    )
+    try:
+        stdout = _run_git(
+            repo_path,
+            [
+                "blame",
+                "--porcelain",
+                "-w",
+                "-L",
+                line_spec,
+                parent_sha,
+                "--",
+                file_path,
+            ],
+        )
+    except subprocess.CalledProcessError:
+        return []
 
     blamed_lines: list[tuple[str, int]] = []
     for line in stdout.splitlines():
